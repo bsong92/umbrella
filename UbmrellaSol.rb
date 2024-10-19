@@ -14,7 +14,7 @@ parsed_gmaps_data = JSON.parse(raw_gmaps_data)
 
 results_array = parsed_gmaps_data.fetch("results")
 address_component = results_array.at(0).fetch("geometry")
-geometry_component = 
+geometry_component = address_
 
 pp address_component
 
