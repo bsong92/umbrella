@@ -14,18 +14,18 @@ parsed_gmaps_data = JSON.parse(raw_gmaps_data)
 
 results_array = parsed_gmaps_data.fetch("results")
 address_component = results_array.at(0).fetch("geometry")
-geometry_component = address_
+geometry_component = address_component.fetch("location")
+lat = geometry_component.fetch("lat")
+long = geometry_component.fetch("lng")
 
-pp address_component
+pp "Coordinates are #{lat}, #{long}."
 
+pirate_weather_key = ENV.fetch("PIRATE_WEATHER_KEY")
+pirate_weather_url = "https://api.pirateweather.net/forecast/" + pirate_weather_key + "/#{lat},#{long}"
 
-# response = HTTP.get("https://en.wikipedia.org/wiki/Chicago")
+pp pirate_weather_url
 
-# Fetch the latitude and longitude of the exact location 
-
-
-# Place a GET request to the URL
-
+response = HTTP.get(pirate_weather_url)
 
 # Fetching key for the Pirate_Weather
 # pirate_weather_api_key = ENV.fetch("PIRATE_WEATHER_API_KEY")
