@@ -18,17 +18,25 @@ geometry_component = address_component.fetch("location")
 lat = geometry_component.fetch("lat")
 long = geometry_component.fetch("lng")
 
-pp "Coordinates are #{lat}, #{long}."
+# pp "Coordinates are #{lat}, #{long}."
 
 pirate_weather_key = ENV.fetch("PIRATE_WEATHER_KEY")
 pirate_weather_url = "https://api.pirateweather.net/forecast/" + pirate_weather_key + "/#{lat},#{long}"
 
-pp pirate_weather_url
+# pp pirate_weather_url
 
 response = HTTP.get(pirate_weather_url)
+parsed_data = JSON.parse(response)
+current_data = parsed_data.fetch("currently")
+temp = current_data.fetch("temperature")
 
-# Fetching key for the Pirate_Weather
-# pirate_weather_api_key = ENV.fetch("PIRATE_WEATHER_API_KEY")
+puts "It is currently #{temp}°F."
 
-# # Assemble the full URL string by adding the first part, the API token, and the last part together
-# pirate_weather_url = "https://api.pirateweather.net/forecast/" + pirate_weather_api_key + "/41.8887,-87.6355"
+hourly_hash = parsed_data.fetch("hourly")
+hourly_temp = hourly_hash.fetch("summary")
+
+pp "For the next hour, it will be #{hourly_temp}"
+
+precip_threshold = 0.10
+
+
